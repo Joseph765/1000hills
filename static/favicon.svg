@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Crosses are aligned to a 32-unit grid so they stay crisp at 16px and 32px -->
+  <rect width="512" height="512" rx="96" fill="#16345f"/>
+  <g fill="#ffffff">
+    <rect x="224" y="64" width="64" height="352"/>
+    <rect x="160" y="160" width="192" height="64"/>
+    <rect x="96" y="192" width="32" height="224"/>
+    <rect x="64" y="256" width="96" height="32"/>
+    <rect x="384" y="192" width="32" height="224"/>
+    <rect x="352" y="256" width="96" height="32"/>
+  </g>
+  <path d="M0 384 C 96 336, 176 336, 256 360 S 424 384, 512 344 V 512 H 0 Z" fill="#5b9bc6"/>
+  <path d="M0 448 C 112 416, 216 416, 300 436 S 440 456, 512 432 V 512 H 0 Z" fill="#2f6aa3"/>
+</svg>

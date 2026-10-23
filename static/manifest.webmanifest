@@ -1,0 +1,11 @@
+{
+	"name": "1000 Hills Ministry International",
+	"short_name": "1000 Hills",
+	"icons": [
+		{ "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+		{ "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+	],
+	"theme_color": "#16345f",
+	"background_color": "#ffffff",
+	"display": "standalone"
+}
