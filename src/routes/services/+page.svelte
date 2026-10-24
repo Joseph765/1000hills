@@ -31,8 +31,8 @@
 </svelte:head>
 
 <PageBanner
-	image="/hdrFoodLine.jpg"
-	imagePosition="45% center"
+	image="/images/services-banner.jpg"
+	imagePosition="30% center"
 	imageAlt="People gathered for an outdoor church service"
 	eyebrow="Services"
 	title="Join us in the field"
