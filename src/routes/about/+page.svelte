@@ -64,7 +64,7 @@
 		active = id;
 		replaceState(`#${id}`, {});
 		scrollToTabs();
-		if (focus) document.getElementById(`tab-${id}`)?.focus();
+		if (focus) document.getElementById(`tab-${id}`)?.focus({ preventScroll: true });
 	}
 
 	// Arrow keys, Home and End move between tabs (standard tab keyboard pattern)
@@ -149,6 +149,32 @@
 	</div>
 </div>
 
+{#snippet nextLink(current: string)}
+	{@const following = sections[ids.indexOf(current) + 1]}
+	<div class="next">
+		{#if following}
+			<a
+				class="next__link"
+				href="#{following.id}"
+				onclick={(event) => {
+					event.preventDefault();
+					select(following.id, true);
+				}}
+			>
+				<span class="next__label">Next</span>
+				<span class="next__title">{following.label}</span>
+				<span class="next__arrow" aria-hidden="true">→</span>
+			</a>
+		{:else}
+			<a class="next__link" href="/services">
+				<span class="next__label">Come see for yourself</span>
+				<span class="next__title">Join us at Church in the Field</span>
+				<span class="next__arrow" aria-hidden="true">→</span>
+			</a>
+		{/if}
+	</div>
+{/snippet}
+
 <div class="panel" role="tabpanel" id="panel-mission" aria-labelledby="tab-mission" tabindex="0" hidden={active !== 'mission'}>
 <!-- ============ Mission ============ -->
 <section id="mission" class="section">
@@ -180,6 +206,7 @@
 	reference="Luke 14:13–14"
 	translation="NLT"
 />
+{@render nextLink('mission')}
 </div>
 
 <div class="panel" role="tabpanel" id="panel-how-we-serve" aria-labelledby="tab-how-we-serve" tabindex="0" hidden={active !== 'how-we-serve'}>
@@ -225,11 +252,13 @@
 		</aside>
 	</div>
 </section>
+{@render nextLink('how-we-serve')}
 </div>
 
 <div class="panel" role="tabpanel" id="panel-where-we-serve" aria-labelledby="tab-where-we-serve" tabindex="0" hidden={active !== 'where-we-serve'}>
 <!-- ============ Where we serve ============ -->
 <ServiceTimes id="where-we-serve" eyebrow="Where we serve" />
+{@render nextLink('where-we-serve')}
 </div>
 
 <div class="panel" role="tabpanel" id="panel-our-focus" aria-labelledby="tab-our-focus" tabindex="0" hidden={active !== 'our-focus'}>
@@ -257,6 +286,7 @@
 		</ol>
 	</div>
 </section>
+{@render nextLink('our-focus')}
 </div>
 
 <div class="panel" role="tabpanel" id="panel-what-we-believe" aria-labelledby="tab-what-we-believe" tabindex="0" hidden={active !== 'what-we-believe'}>
@@ -288,6 +318,7 @@
 		</ul>
 	</div>
 </section>
+{@render nextLink('what-we-believe')}
 </div>
 
 <style>
@@ -379,6 +410,102 @@
 	/* Short tabs still push the footer down a bit, so switching doesn't jump as much */
 	.panel {
 		min-height: 50vh;
+	}
+
+	/* ---------- "Next" link at the end of each tab ---------- */
+	.next {
+		--navy: #0e1e3c;
+		--accent: #c85f1c;
+		--display-font: var(--font-display, 'Oswald', 'Bebas Neue', Impact, sans-serif);
+		--body-font: var(--font-body, 'Inter', system-ui, -apple-system, sans-serif);
+
+		display: flex;
+		justify-content: flex-end;
+		max-width: calc(1200px + 2.5rem);
+		margin: 0 auto;
+		padding: 2.5rem 1.25rem 3.5rem;
+		background: #fff;
+	}
+
+	/* Panels that end in a white section already have bottom padding */
+	.section + .next {
+		padding-top: 0;
+	}
+
+	.next__link {
+		box-sizing: border-box;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: center;
+		column-gap: 1rem;
+		width: 100%;
+		padding: 1.15rem 1.35rem;
+		border: 1px solid rgb(14 30 60 / 0.15);
+		border-radius: 8px;
+		color: var(--navy);
+		text-decoration: none;
+		transition: border-color 0.2s ease;
+	}
+
+	.next__label {
+		grid-column: 1;
+		font-family: var(--body-font);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--accent);
+	}
+
+	.next__title {
+		grid-column: 1;
+		margin-top: 0.2rem;
+		font-family: var(--display-font);
+		font-size: 1.5rem;
+		font-weight: 700;
+		line-height: 1.1;
+		text-transform: uppercase;
+	}
+
+	.next__arrow {
+		grid-column: 2;
+		grid-row: 1 / span 2;
+		font-size: 1.75rem;
+		line-height: 1;
+		color: var(--accent);
+		transition: transform 0.2s ease;
+	}
+
+	.next__link:focus-visible {
+		outline: 3px solid var(--accent);
+		outline-offset: 3px;
+	}
+
+	@media (hover: hover) {
+		.next__link:hover {
+			border-color: var(--accent);
+		}
+		.next__link:hover .next__arrow {
+			transform: translateX(4px);
+		}
+	}
+
+	@media (min-width: 900px) {
+		.next {
+			max-width: calc(1200px + 4rem);
+			padding: 3.5rem 2rem 5.5rem;
+		}
+
+		.next__link {
+			width: min(100%, 26rem);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.next__link,
+		.next__arrow {
+			transition: none;
+		}
 	}
 
 	/* ---------- Sections ---------- */

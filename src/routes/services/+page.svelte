@@ -24,7 +24,7 @@
 </script>
 
 <svelte:head>
-	<title>Services | 1000 Hills Ministry International</title>
+	<title>Services | 1000 Hills Ministry</title>
 	<meta
 		name="description"
 		content="Church in the Field meets Monday through Saturday at 7:30 PM and Sunday at 3 PM at 2800 St. Charles St., Houston. Worship, the Word, prayer and a meal. Everyone is welcome."
@@ -34,6 +34,7 @@
 <PageBanner
 	image="/images/tent.png"
 	imageAlt="People gathered for an outdoor church service"
+	blur={4}
 	eyebrow="Services"
 	title="Join us in the field"
 	intro="Church in the Field meets outdoors seven days a week. Come as you are."

@@ -6,14 +6,13 @@
 </script>
 
 <svelte:head>
-	<title>1000 Hills Ministry | Feeding Body & Soul in Houston</title>
-    <!-- <title>1000 Hills Ministry</title> -->
+	<title>1000 Hills Ministry</title>
 	<meta name="description" content="Outdoor church services and hot meals for Houston neighbors facing poverty, homelessness and addiction." />
 </svelte:head>
 
 <Hero
-    // eyebrow="1000 Hills Ministry · Houston, Texas"
-	eyebrow="Houston, Texas"
+    eyebrow="1000 Hills Ministry · Houston, Texas"
+	// eyebrow="Houston, Texas"
 	headline="Feeding body & soul"
 	subhead="Outdoor church services and meals for Houston neighbors facing poverty, homelessness and addiction."
 	image="/images/service.jpg"

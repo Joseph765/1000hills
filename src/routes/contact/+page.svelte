@@ -26,7 +26,7 @@
 </script>
 
 <svelte:head>
-	<title>Contact | 1000 Hills Ministry International</title>
+	<title>Contact | 1000 Hills Ministry</title>
 	<meta
 		name="description"
 		content="Contact 1000 Hills Ministry about giving, volunteering, or bringing your church, group or family to serve. Call (281) 787-8275."
