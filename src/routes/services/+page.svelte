@@ -1,6 +1,12 @@
+<!--
+  Services page for 1000 Hills Ministry International
+  Place in: src/routes/services/+page.svelte
+  Uses PageBanner and ServiceTimes; "What to expect" is drawn from the ministry's existing copy.
+-->
 <script lang="ts">
 	import PageBanner from '../../lib/components/PageBanner.svelte';
 	import ServiceTimes from '../../lib/components/ServiceTimes.svelte';
+	import VideoEmbed from '../../lib/components/VideoEmbed.svelte';
 
 	const expect = [
 		{
@@ -31,8 +37,7 @@
 </svelte:head>
 
 <PageBanner
-	image="/images/services-banner.jpg"
-	imagePosition="30% center"
+	image="/images/tent.png"
 	imageAlt="People gathered for an outdoor church service"
 	eyebrow="Services"
 	title="Join us in the field"
@@ -66,14 +71,28 @@
 <!-- ============ Serve with us ============ -->
 <section class="cta" aria-labelledby="cta-heading">
 	<div class="cta__inner">
-		<div>
+		<div class="cta__copy">
+			<p class="cta__eyebrow">Serve with us</p>
 			<h2 id="cta-heading" class="cta__heading">Bring your church or group</h2>
 			<p class="cta__text">
 				Local churches and ministries regularly lead our outdoor services. It's a real mission field
 				without leaving the country.
 			</p>
+			<a class="cta__button" href="/contact">Contact us</a>
 		</div>
-		<a class="cta__button" href="/contact">Contact us</a>
+
+		<figure class="cta__video">
+			<VideoEmbed provider="youtube" id="7Zq4LNAjkrs" title="Church Under the Bridge, by Cru Houston" />
+			<figcaption>
+				A Cru Houston group serving at Church Under the Bridge, January 2015.
+				<span class="cta__credit">
+					Video by
+					<a href="https://www.youtube.com/@cruhoustonvideos" target="_blank" rel="noopener noreferrer"
+						>Cru Houston<span class="sr-only"> (opens in a new tab)</span></a
+					>
+				</span>
+			</figcaption>
+		</figure>
 	</div>
 </section>
 
@@ -179,30 +198,40 @@
 
 	/* ---------- Call to action ---------- */
 	.cta {
-		padding: 3rem 1.25rem;
+		padding: 3.5rem 1.25rem;
 		background: var(--navy);
 		color: #fff;
 	}
 
 	.cta__inner {
 		display: grid;
-		gap: 1.5rem;
+		gap: 2.25rem;
 		max-width: 1200px;
 		margin: 0 auto;
+	}
+
+	.cta__eyebrow {
+		margin: 0 0 0.75rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: #f3b27f;
 	}
 
 	.cta__heading {
 		margin: 0;
 		font-family: var(--display-font);
-		font-size: clamp(1.75rem, 7vw, 2.25rem);
+		font-size: clamp(2rem, 8vw, 2.5rem);
 		font-weight: 700;
-		line-height: 1.1;
+		line-height: 1.05;
 		text-transform: uppercase;
+		text-wrap: balance;
 	}
 
 	.cta__text {
-		max-width: 40rem;
-		margin: 0.75rem 0 0;
+		max-width: 34rem;
+		margin: 1rem 0 0;
 		font-size: 1.05rem;
 		line-height: 1.6;
 		color: rgb(255 255 255 / 0.8);
@@ -213,6 +242,7 @@
 		align-items: center;
 		justify-content: center;
 		min-height: 48px;
+		margin-top: 1.75rem;
 		padding: 0.8rem 1.75rem;
 		border-radius: 4px;
 		background: var(--accent);
@@ -231,10 +261,54 @@
 		outline-offset: 3px;
 	}
 
+	.cta__video {
+		margin: 0;
+	}
+
+	.cta__video figcaption {
+		margin-top: 0.85rem;
+		font-size: 0.875rem;
+		line-height: 1.5;
+		color: rgb(255 255 255 / 0.6);
+	}
+
+	.cta__credit {
+		white-space: nowrap;
+	}
+
+	.cta__credit a {
+		color: #f3b27f;
+		font-weight: 600;
+		text-decoration: underline;
+		text-decoration-color: rgb(243 178 127 / 0.4);
+		text-underline-offset: 3px;
+	}
+
+	.cta__credit a:focus-visible {
+		outline: 3px solid #f3b27f;
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
+
 	@media (hover: hover) {
 		.cta__button:hover {
 			background: var(--accent-hover);
 		}
+		.cta__credit a:hover {
+			text-decoration-color: currentColor;
+		}
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+		border: 0;
 	}
 
 	/* ---------- Tablet ---------- */
@@ -243,10 +317,6 @@
 			grid-template-columns: repeat(2, 1fr);
 		}
 
-		.cta__inner {
-			grid-template-columns: 1fr auto;
-			align-items: center;
-		}
 	}
 
 	/* ---------- Desktop ---------- */
@@ -274,7 +344,25 @@
 		}
 
 		.cta {
-			padding: 4rem 2rem;
+			padding: 5.5rem 2rem;
+		}
+
+		.cta__inner {
+			grid-template-columns: 1fr 1.15fr;
+			align-items: center;
+			gap: 4rem;
+		}
+
+		.cta__heading {
+			font-size: clamp(2.5rem, 4vw, 3.25rem);
+		}
+
+		.cta__eyebrow {
+			font-size: 0.875rem;
+		}
+
+		.cta__text {
+			font-size: 1.15rem;
 		}
 	}
 

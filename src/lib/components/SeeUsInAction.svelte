@@ -1,13 +1,11 @@
-<!--
-  SeeUsInAction.svelte — video section for 1000 Hills Ministry
-  Place in: src/lib/components/SeeUsInAction.svelte and render it after <WhatWeDo /> on the homepage.
-  Svelte 5 (runes). Embeds a Vimeo video in a responsive 16:9 iframe that only loads when scrolled near.
--->
 <script lang="ts">
+	import VideoEmbed from './VideoEmbed.svelte';
+
 	type Props = {
 		id?: string;
-		/** The number at the end of a vimeo.com link, e.g. vimeo.com/16186350 → "16186350" */
-		vimeoId?: string;
+		provider?: 'youtube' | 'vimeo';
+		/** The video's ID: vimeo.com/THIS or youtube.com/watch?v=THIS */
+		videoId?: string;
 		/** Describes the video for screen readers */
 		videoTitle?: string;
 		eyebrow?: string;
@@ -22,7 +20,8 @@
 
 	let {
 		id = 'see-us-in-action',
-		vimeoId = '16186350',
+		provider = 'vimeo',
+		videoId = '16186350',
 		videoTitle = '1000 Hills Ministry International documentary',
 		eyebrow = 'See us in action',
 		heading = 'The ministry, up close',
@@ -31,11 +30,6 @@
 		creditName = 'Homer Films',
 		creditUrl = 'https://www.homerfilms.com'
 	}: Props = $props();
-
-	// dnt=1 stops Vimeo from tracking visitors; title/byline/portrait=0 hide the overlay text
-	const src = $derived(
-		`https://player.vimeo.com/video/${vimeoId}?dnt=1&title=0&byline=0&portrait=0`
-	);
 </script>
 
 <section class="video" {id} aria-labelledby="{id}-heading">
@@ -51,15 +45,7 @@
 		</header>
 
 		<figure class="player">
-			<div class="player__frame">
-				<iframe
-					{src}
-					title={videoTitle}
-					loading="lazy"
-					allow="autoplay; fullscreen; picture-in-picture"
-					allowfullscreen
-				></iframe>
-			</div>
+			<VideoEmbed {provider} id={videoId} title={videoTitle} />
 			{#if caption || creditName}
 				<figcaption class="player__caption">
 					{#if caption}<span>{caption}</span>{/if}
@@ -144,23 +130,6 @@
 	/* ---------- Player ---------- */
 	.player {
 		margin: 0;
-	}
-
-	.player__frame {
-		position: relative;
-		overflow: hidden;
-		aspect-ratio: 16 / 9;
-		border-radius: 8px;
-		background: #000;
-		box-shadow: 0 20px 48px rgb(0 0 0 / 0.35);
-	}
-
-	.player__frame iframe {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		border: 0;
 	}
 
 	.player__caption {

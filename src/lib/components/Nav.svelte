@@ -1,8 +1,3 @@
-<!--
-  Nav.svelte — site header for 1000 Hills Ministry International
-  Place in: src/lib/components/Nav.svelte and render it in src/routes/+layout.svelte
-  Svelte 5 (runes) + SvelteKit 2.12+ ($app/state).
--->
 <script lang="ts">
 	import { page } from '$app/state';
 	import { slide } from 'svelte/transition';
@@ -25,7 +20,7 @@
 			{ label: 'Services', href: '/services' },
 			{ label: 'Contact', href: '/contact' }
 		],
-		donateHref = '/donate',
+		donateHref = 'https://www.paypal.com/donate/?hosted_button_id=CMTD9CKPZFAJU',
 		phone = '281-787-8275'
 	}: Props = $props();
 
@@ -80,7 +75,7 @@
 		</nav>
 
 		<div class="actions">
-			<a class="donate" href={donateHref}>Donate</a>
+			<a class="donate" href={donateHref} target="_blank">Donate</a>
 
 			<button
 				class="menu-toggle"

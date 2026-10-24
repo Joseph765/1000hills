@@ -1,8 +1,3 @@
-<!--
-  Footer.svelte — site footer for 1000 Hills Ministry International
-  Place in: src/lib/components/Footer.svelte and render it in src/routes/+layout.svelte after the page content.
-  Svelte 5 (runes). Email and Facebook only appear once you pass them.
--->
 <script lang="ts">
 	type NavLink = { label: string; href: string };
 
@@ -32,7 +27,7 @@
 			{ label: 'Services', href: '/services' },
 			{ label: 'Contact', href: '/contact' }
 		],
-		donateHref = '/donate',
+		donateHref = 'https://www.paypal.com/donate/?hosted_button_id=CMTD9CKPZFAJU',
 		phone = '281-787-8275',
 		email,
 		facebookUrl = 'https://www.facebook.com/1000Hills/',
@@ -63,7 +58,7 @@
 			{#if tagline}
 				<p class="footer__tagline">{tagline}</p>
 			{/if}
-			<a class="footer__donate" href={donateHref}>Donate</a>
+			<a class="footer__donate" href={donateHref} target="_blank">Donate</a>
 		</div>
 
 		<nav class="footer__col" aria-label="Footer">

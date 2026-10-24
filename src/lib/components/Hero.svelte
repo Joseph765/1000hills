@@ -1,9 +1,3 @@
-<!--
-  Hero.svelte — homepage hero for 1000 Hills Ministry International
-  Place in: src/lib/components/Hero.svelte
-  Svelte 5 (runes). Put your hero photo in /static/images/ and pass its path as `image`.
-  Styles are mobile-first: base rules target phones, media queries scale up.
--->
 <script lang="ts">
 	type Link = { label: string; href: string };
 
@@ -26,7 +20,7 @@
 		eyebrow = 'Houston, Texas',
 		headline,
 		subhead,
-		primary = { label: 'Donate', href: '/donate' },
+		primary = { label: 'Donate', href: 'https://www.paypal.com/donate/?hosted_button_id=CMTD9CKPZFAJU' },
 		secondary = { label: 'Volunteer', href: '/contact' }
 	}: Props = $props();
 </script>
@@ -53,7 +47,7 @@
 		{/if}
 
 		<div class="hero__actions">
-			<a class="btn btn--primary" href={primary.href}>{primary.label}</a>
+			<a class="btn btn--primary" href={primary.href} target="_blank">{primary.label}</a>
 			<a class="btn btn--secondary" href={secondary.href}>{secondary.label}</a>
 		</div>
 	</div>

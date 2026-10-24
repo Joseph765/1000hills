@@ -114,9 +114,11 @@
 </svelte:head>
 
 <PageBanner
-	image="/hdr-OutdoorPeople-Blurred.jpg"
+	image="/images/service-2.jpg"
+	imagePosition="center 35%"
 	imageAlt="An outdoor church service in a Houston field, with a wooden cross and rows of chairs"
 	eyebrow="About us"
+	blur={4}
 	title="Church without walls"
 	intro="A Jesus ministry serving Houston's poor and homeless, every day of the year, entirely outdoors."
 />

@@ -4,17 +4,28 @@
 		imageAlt?: string;
 		/** CSS object-position, e.g. "40% center" to keep the subject in frame on phones */
 		imagePosition?: string;
+		/** Blur the photo by this many pixels (0 = off). 4 matches the site's soft banner look. */
+		blur?: number;
 		eyebrow?: string;
 		title: string;
 		intro?: string;
 	};
 
-	let { image, imageAlt = '', imagePosition = 'center', eyebrow, title, intro }: Props = $props();
+	let {
+		image,
+		imageAlt = '',
+		imagePosition = 'center',
+		blur = 0,
+		eyebrow,
+		title,
+		intro
+	}: Props = $props();
 </script>
 
-<section class="banner">
+<section class="banner" style:--banner-blur="{blur}px">
 	<img
 		class="banner__img"
+		class:blurred={blur > 0}
 		src={image}
 		alt={imageAlt}
 		style:object-position={imagePosition}
@@ -64,6 +75,16 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+
+	/* Blur, with the photo enlarged past the edges so the blur doesn't leave soft,
+	   see-through borders. The banner's overflow: hidden trims the extra. */
+	.banner__img.blurred {
+		inset: calc(var(--banner-blur) * -3);
+		width: calc(100% + var(--banner-blur) * 6);
+		max-width: none; /* overrides the global img { max-width: 100% } reset */
+		height: calc(100% + var(--banner-blur) * 6);
+		filter: blur(var(--banner-blur));
 	}
 
 	.banner::before {

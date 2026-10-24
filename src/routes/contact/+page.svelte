@@ -34,9 +34,10 @@
 </svelte:head>
 
 <PageBanner
-	image="/images/prayer-circle-blurred.jpg"
-	imagePosition="center 35%"
+	image="/images/prayer-circle.jpg"
+	imagePosition="100% 35%"
 	imageAlt="People gathered for an outdoor church service"
+	blur={4}
 	eyebrow="Contact us"
 	title="Get in touch"
 	intro="Questions about giving, volunteering, or how you and your group or family can get involved? We'd love to hear from you."
