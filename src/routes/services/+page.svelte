@@ -1,12 +1,7 @@
-<!--
-  Services page for 1000 Hills Ministry International
-  Place in: src/routes/services/+page.svelte
-  Uses PageBanner and ServiceTimes; "What to expect" is drawn from the ministry's existing copy.
--->
 <script lang="ts">
-	import PageBanner from '../../lib/components/PageBanner.svelte';
-	import ServiceTimes from '../../lib/components/ServiceTimes.svelte';
-	import VideoEmbed from '../../lib/components/VideoEmbed.svelte';
+	import PageBanner from '#lib/components/PageBanner.svelte';
+	import ServiceTimes from '#lib/components/ServiceTimes.svelte';
+	import VideoEmbed from '#lib/components/VideoEmbed.svelte';
 
 	const expect = [
 		{
@@ -22,7 +17,7 @@
 			text: 'Prayer is part of every service. We bring our needs, and the needs of our neighbors, to God together.'
 		},
 		{
-			title: 'A hot meal',
+			title: 'A meal',
 			text: 'A meal is served at every service, and we do our best to meet immediate, pressing needs.'
 		}
 	];
@@ -32,7 +27,7 @@
 	<title>Services | 1000 Hills Ministry International</title>
 	<meta
 		name="description"
-		content="Church in the Field meets Monday through Saturday at 7:30 PM and Sunday at 3 PM at 2800 St. Charles St., Houston. Worship, the Word, prayer and a hot meal. Everyone is welcome."
+		content="Church in the Field meets Monday through Saturday at 7:30 PM and Sunday at 3 PM at 2800 St. Charles St., Houston. Worship, the Word, prayer and a meal. Everyone is welcome."
 	/>
 </svelte:head>
 

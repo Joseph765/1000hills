@@ -1,3 +1,8 @@
+<!--
+  WhatWeDo.svelte — "What we do" section for 1000 Hills Ministry
+  Place in: src/lib/components/WhatWeDo.svelte and render it after <ServiceTimes /> on the homepage.
+  Svelte 5 (runes). Each card shows a photo if you pass `image`, otherwise a simple icon.
+-->
 <script lang="ts">
 	type Icon = 'cross' | 'meal' | 'heart';
 
@@ -23,7 +28,7 @@
 		id = 'what-we-do',
 		eyebrow = 'What we do',
 		heading = 'Food for the soul. Food for the body.',
-		intro = 'We serve neighbors in Houston struggling with poverty, homelessness, addiction and despair, meeting them where they are with the gospel and a hot meal.',
+		intro = 'We serve neighbors in Houston struggling with poverty, homelessness, addiction and despair, meeting them where they are with the Gospel and a meal.',
 		items = [
 			{
 				icon: 'cross',
@@ -32,8 +37,8 @@
 			},
 			{
 				icon: 'meal',
-				title: 'Hot meals',
-				text: 'Nutritious food for the body served alongside spiritual food for the soul, so no one who comes is sent away hungry.'
+				title: 'Meals',
+				text: 'Nutritious food for the body, served alongside spiritual food for the soul at every service.'
 			},
 			{
 				icon: 'heart',

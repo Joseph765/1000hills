@@ -15,7 +15,7 @@
     // eyebrow="1000 Hills Ministry · Houston, Texas"
 	eyebrow="Houston, Texas"
 	headline="Feeding body & soul"
-	subhead="Outdoor church services and hot meals for Houston neighbors facing poverty, homelessness and addiction."
+	subhead="Outdoor church services and meals for Houston neighbors facing poverty, homelessness and addiction."
 	image="/images/service.jpg"
 	imageAlt="Hero image"
     imagePosition="42% center"
