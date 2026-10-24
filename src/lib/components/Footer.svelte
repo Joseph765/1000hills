@@ -35,7 +35,7 @@
 		donateHref = '/donate',
 		phone = '281-787-8275',
 		email,
-		facebookUrl,
+		facebookUrl = 'https://www.facebook.com/1000Hills/',
 		serviceName = 'Church in the Field',
 		serviceTimes = [
 			{ label: 'Mon – Sat', time: '7:30 PM' },

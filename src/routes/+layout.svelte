@@ -18,4 +18,4 @@
 	{@render children()}
 </main>
 
-<Footer logo="/logo.png" facebookUrl="https://www.facebook.com/YOUR-PAGE" />
+<Footer logo="/logo.png" facebookUrl="https://www.facebook.com/1000Hills/" />
