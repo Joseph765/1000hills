@@ -1,69 +1,65 @@
+<!--
+  Nav
+  The site header: logo, main links, Give button, and a menu toggle on
+  small screens. Use it once in src/routes/+layout.svelte.
+
+  <Nav />
+  <Nav links={[{ label: 'About', href: '/about' }]} giveHref="/donate" />
+-->
 <script lang="ts">
 	import { page } from '$app/state';
-	import { slide } from 'svelte/transition';
+	import { afterNavigate } from '$app/navigation';
+	import Button from './Button.svelte';
 
-	type NavLink = { label: string; href: string };
+	interface NavLink {
+		label: string;
+		href: string;
+	}
 
-	type Props = {
-		logo: string;
-		logoAlt?: string;
+	interface Props {
 		links?: NavLink[];
-		donateHref?: string;
-		phone?: string;
-	};
+		giveHref?: string;
+		logoSrc?: string;
+	}
 
 	let {
-		logo,
-		logoAlt = '1000 Hills Ministry International',
 		links = [
-			{ label: 'About', href: '/about' },
-			{ label: 'Services', href: '/services' },
+			{ label: 'Why We Serve', href: '/why-we-serve' },
+			{ label: 'Where We Serve', href: '/where-we-serve' },
+			{ label: 'See Us in Action', href: '/see-us-in-action' },
 			{ label: 'Contact', href: '/contact' }
 		],
-		donateHref = 'https://www.paypal.com/donate/?hosted_button_id=CMTD9CKPZFAJU',
-		phone = '281-787-8275'
+		giveHref = '/give',
+		logoSrc = '/images/1000hills-logo.png'
 	}: Props = $props();
 
 	let open = $state(false);
-	let scrollY = $state(0);
-	let scrolled = $derived(scrollY > 8);
 
-	const telHref = $derived(`tel:+1${phone.replace(/\D/g, '')}`);
-
-	function isActive(href: string) {
-		const path = page.url.pathname;
-		return href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
-	}
-
-	// Close the mobile menu whenever the route changes
-	$effect(() => {
-		page.url.pathname;
+	// Close the mobile menu after moving to another page.
+	afterNavigate(() => {
 		open = false;
 	});
 
-	// Stop the page behind the open mobile menu from scrolling
-	$effect(() => {
-		document.body.style.overflow = open ? 'hidden' : '';
-		return () => {
-			document.body.style.overflow = '';
-		};
-	});
+	function isActive(href: string) {
+		const path = page.url.pathname;
+		return path === href || path.startsWith(`${href}/`);
+	}
 
-	function onKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape') open = false;
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && open) open = false;
 	}
 </script>
 
-<svelte:window bind:scrollY onkeydown={onKeydown} />
+<svelte:window onkeydown={handleKeydown} />
 
-<header class="site-header" class:scrolled class:open>
-	<div class="bar">
-		<a class="brand" href="/" aria-label="1000 Hills Ministry home">
-			<img src={logo} alt={logoAlt} />
+<header class="site-header">
+	<div class="inner">
+		<a href="/" class="logo">
+			<img src={logoSrc} alt="1000 Hills Ministry International, home" width="218" height="145" />
 		</a>
 
-		<nav class="desktop-nav" aria-label="Main">
-			<ul>
+		<nav aria-label="Main">
+			<ul id="main-menu" class="links" class:open>
 				{#each links as link (link.href)}
 					<li>
 						<a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
@@ -72,325 +68,169 @@
 					</li>
 				{/each}
 			</ul>
+
+			<div class="actions">
+				<Button href={giveHref} size="s">Give</Button>
+				<button
+					type="button"
+					class="menu-toggle"
+					aria-controls="main-menu"
+					aria-expanded={open}
+					aria-label={open ? 'Close menu' : 'Open menu'}
+					onclick={() => (open = !open)}
+				>
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						{#if open}
+							<path d="M6 6 L18 18 M18 6 L6 18" />
+						{:else}
+							<path d="M4 7 H20 M4 12 H20 M4 17 H20" />
+						{/if}
+					</svg>
+				</button>
+			</div>
 		</nav>
-
-		<div class="actions">
-			<a class="donate" href={donateHref} target="_blank">Donate</a>
-
-			<button
-				class="menu-toggle"
-				type="button"
-				aria-expanded={open}
-				aria-controls="mobile-menu"
-				onclick={() => (open = !open)}
-			>
-				<span class="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
-				<span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
-			</button>
-		</div>
 	</div>
-
-	{#if open}
-		<nav
-			id="mobile-menu"
-			class="mobile-menu"
-			aria-label="Main"
-			transition:slide={{ duration: 220 }}
-		>
-			<ul>
-				{#each links as link (link.href)}
-					<li>
-						<a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
-							{link.label}
-						</a>
-					</li>
-				{/each}
-			</ul>
-
-			{#if phone}
-				<p class="mobile-phone">Call us at <a href={telHref}>{phone}</a></p>
-			{/if}
-		</nav>
-	{/if}
 </header>
 
 <style>
 	.site-header {
-		--nav-navy: #0e1e3c;
-		--nav-blue: #1f3f75;
-		--nav-accent: #c85f1c;
-		--nav-accent-hover: #a94d14;
-		--nav-display-font: var(--font-display, 'Oswald', 'Bebas Neue', Impact, sans-serif);
-		--nav-body-font: var(--font-body, 'Inter', system-ui, -apple-system, sans-serif);
-		--nav-height: 72px;
-
-		position: sticky;
-		top: 0;
-		z-index: 50;
-		background: #fff;
-		transition: box-shadow 0.2s ease;
+		position: relative;
+		z-index: 10;
+		background: var(--color-surface);
+		border-bottom: var(--border-width) solid var(--color-border);
 	}
 
-	.site-header,
-	.site-header *,
-	.site-header *::before,
-	.site-header *::after {
-		box-sizing: border-box;
-	}
-
-	.site-header.scrolled,
-	.site-header.open {
-		box-shadow: 0 2px 16px rgb(14 30 60 / 0.12);
-	}
-
-	.bar {
+	.inner {
+		max-width: var(--size-content-max);
+		margin-inline: auto;
+		padding: var(--space-m) var(--size-gutter);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 1rem;
-		max-width: 1200px;
-		height: var(--nav-height);
-		margin: 0 auto;
-		padding: 0 1.25rem;
+		gap: var(--space-m);
 	}
 
-	.brand {
-		display: flex;
-		align-items: center;
-		height: 100%;
-		padding: 8px 0;
-	}
-
-	.brand img {
+	.logo {
 		display: block;
-		height: 100%;
+		flex: none;
+	}
+	.logo img {
+		display: block;
+		height: 60px;
 		width: auto;
 	}
 
-	/* ---------- Desktop links (hidden on phones) ---------- */
-	.desktop-nav {
-		display: none;
+	nav {
+		display: flex;
+		align-items: center;
+		gap: var(--space-l);
 	}
 
-	.desktop-nav ul,
-	.mobile-menu ul {
+	.links {
+		display: flex;
+		align-items: center;
+		gap: var(--space-l);
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.desktop-nav ul {
-		display: flex;
-		gap: clamp(1.5rem, 3vw, 2.5rem);
-	}
-
-	.desktop-nav a {
-		position: relative;
-		padding: 0.5rem 0;
-		font-family: var(--nav-display-font);
-		font-size: 1.05rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
+	.links a {
+		display: inline-block;
+		padding-block: var(--space-xs);
+		font-size: var(--font-size-s);
+		font-weight: var(--font-weight-strong);
+		color: var(--color-text-link);
 		text-decoration: none;
-		color: var(--nav-navy);
+		border-bottom: 2px solid transparent;
 	}
-
-	.desktop-nav a::after {
-		content: '';
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		height: 2px;
-		background: var(--nav-accent);
-		transform: scaleX(0);
-		transform-origin: left;
-		transition: transform 0.2s ease;
+	.links a:hover {
+		color: var(--color-text-link-hover);
 	}
-
-	.desktop-nav a[aria-current='page']::after {
-		transform: scaleX(1);
+	.links a[aria-current='page'] {
+		color: var(--color-text);
+		border-bottom-color: var(--color-hill-near);
+	}
+	.links a:focus-visible,
+	.menu-toggle:focus-visible,
+	.logo:focus-visible {
+		outline: 3px solid var(--color-text-link);
+		outline-offset: 3px;
+		border-radius: var(--border-radius-s);
 	}
 
 	.actions {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--space-xs);
 	}
 
-	.donate {
-		display: inline-flex;
+	.menu-toggle {
+		display: none;
+		width: 2.75rem;
+		height: 2.75rem;
+		padding: 0;
 		align-items: center;
 		justify-content: center;
-		border-radius: 4px;
-		background: var(--nav-accent);
-		color: #fff;
-		font-family: var(--nav-display-font);
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		text-decoration: none;
-		transition: background-color 0.2s ease;
-	}
-
-	.donate {
-		min-height: 40px;
-		padding: 0.5rem 1rem;
-		font-size: 0.95rem;
-	}
-
-	/* ---------- Menu button ---------- */
-	.menu-toggle {
-		display: grid;
-		place-items: center;
-		width: 44px;
-		height: 44px;
-		padding: 0;
-		border: 0;
-		border-radius: 4px;
-		background: transparent;
-		color: var(--nav-navy);
+		background: var(--color-surface);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--border-radius);
 		cursor: pointer;
 	}
-
-	.bars {
-		position: relative;
-		display: block;
-		width: 24px;
-		height: 18px;
+	.menu-toggle svg {
+		width: 22px;
+		height: 22px;
+		fill: none;
+		stroke: var(--color-text);
+		stroke-width: 2;
+		stroke-linecap: round;
 	}
 
-	.bars span {
-		position: absolute;
-		left: 0;
-		width: 100%;
-		height: 2px;
-		border-radius: 2px;
-		background: currentColor;
-		transition:
-			transform 0.2s ease,
-			opacity 0.2s ease,
-			top 0.2s ease;
-	}
-
-	.bars span:nth-child(1) { top: 0; }
-	.bars span:nth-child(2) { top: 8px; }
-	.bars span:nth-child(3) { top: 16px; }
-
-	/* Bars turn into an X when open */
-	.open .bars span:nth-child(1) { top: 8px; transform: rotate(45deg); }
-	.open .bars span:nth-child(2) { opacity: 0; }
-	.open .bars span:nth-child(3) { top: 8px; transform: rotate(-45deg); }
-
-	/* ---------- Mobile menu panel ---------- */
-	.mobile-menu {
-		position: absolute;
-		top: 100%;
-		left: 0;
-		right: 0;
-		height: calc(100svh - var(--nav-height));
-		overflow-y: auto;
-		padding: 1rem 1.25rem 2rem;
-		background: #fff;
-		border-top: 1px solid rgb(14 30 60 / 0.08);
-	}
-
-	.mobile-menu li + li {
-		border-top: 1px solid rgb(14 30 60 / 0.1);
-	}
-
-	.mobile-menu ul a {
-		display: block;
-		padding: 1rem 0;
-		font-family: var(--nav-display-font);
-		font-size: 1.6rem;
-		font-weight: 600;
-		letter-spacing: 0.03em;
-		text-transform: uppercase;
-		text-decoration: none;
-		color: var(--nav-navy);
-	}
-
-	.mobile-menu ul a[aria-current='page'] {
-		color: var(--nav-accent);
-	}
-
-
-	.mobile-phone {
-		margin: 2rem 0 0;
-		font-family: var(--nav-body-font);
-		font-size: 1rem;
-		color: rgb(14 30 60 / 0.75);
-		text-align: center;
-	}
-
-	.mobile-phone a {
-		color: var(--nav-blue);
-		font-weight: 600;
-	}
-
-	.donate:focus-visible,
-	.menu-toggle:focus-visible,
-	.brand:focus-visible,
-	.site-header nav a:focus-visible {
-		outline: 3px solid var(--nav-accent);
-		outline-offset: 3px;
-	}
-
-	.sr-only {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		margin: -1px;
-		padding: 0;
-		overflow: hidden;
-		clip: rect(0 0 0 0);
-		white-space: nowrap;
-		border: 0;
-	}
-
-	@media (hover: hover) {
-		.desktop-nav a:hover::after {
-			transform: scaleX(1);
-		}
-		.donate:hover {
-			background: var(--nav-accent-hover);
-		}
-	}
-
-	/* ---------- Desktop ---------- */
-	@media (min-width: 900px) {
-		.site-header {
-			--nav-height: 84px;
+	/* Tablet and phone: links move into a drop-down panel */
+	@media (max-width: 900px) {
+		.inner {
+			padding-inline: var(--space-m);
 		}
 
-		.bar {
-			padding: 0 2rem;
+		.logo img {
+			height: 44px;
 		}
 
-		.desktop-nav {
-			display: block;
+		.menu-toggle {
+			display: inline-flex;
 		}
 
-		.menu-toggle,
-		.mobile-menu {
+		.links {
 			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0;
+			padding: var(--space-xs) var(--space-m) var(--space-m);
+			background: var(--color-surface);
+			border-bottom: var(--border-width) solid var(--color-border);
+			box-shadow: 0 12px 24px rgb(0 49 99 / 0.08);
+		}
+		.links.open {
+			display: flex;
 		}
 
-		.donate {
-			min-height: 44px;
-			padding: 0.6rem 1.4rem;
-			font-size: 1.05rem;
+		.links a {
+			display: block;
+			padding: var(--space-s) 0;
+			font-size: var(--font-size-m);
+			border-bottom: var(--border-width) solid var(--color-border);
 		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.site-header,
-		.desktop-nav a::after,
-		.bars span,
-		.donate {
-			transition: none;
+		.links li:last-child a {
+			border-bottom-color: transparent;
+		}
+		.links a[aria-current='page'] {
+			border-bottom-color: var(--color-border);
+			box-shadow: inset 3px 0 0 var(--color-hill-near);
+			padding-left: var(--space-s);
 		}
 	}
 </style>

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { replaceState } from '$app/navigation';
-	import PageBanner from '#lib/components/PageBanner.svelte';
-	import Scripture from '#lib/components/Scripture.svelte';
-	import ServiceTimes from '#lib/components/ServiceTimes.svelte';
+	import PageBanner from '#lib/components/OLD/PageBanner.svelte';
+	import Scripture from '#lib/components/OLD/Scripture.svelte';
+	import ServiceTimes from '#lib/components/OLD/ServiceTimes.svelte';
 
 	const sections = [
 		{ id: 'mission', label: 'Our mission' },

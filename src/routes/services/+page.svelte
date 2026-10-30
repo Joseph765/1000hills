@@ -1,7 +1,7 @@
 <script lang="ts">
-	import PageBanner from '#lib/components/PageBanner.svelte';
-	import ServiceTimes from '#lib/components/ServiceTimes.svelte';
-	import VideoEmbed from '#lib/components/VideoEmbed.svelte';
+	import PageBanner from '#lib/components/OLD/PageBanner.svelte';
+	import ServiceTimes from '#lib/components/OLD/ServiceTimes.svelte';
+	import VideoEmbed from '#lib/components/OLD/VideoEmbed.svelte';
 
 	const expect = [
 		{

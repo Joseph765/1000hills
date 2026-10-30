@@ -1,0 +1,211 @@
+/* ==========================================================================
+   1000 Hills Ministry · Design tokens
+   v0.1 · based on the "Lora + Nunito Sans, 10px corners" homepage
+   Naming follows Nord's style: --{category}-{role}-{variant}
+   ========================================================================== */
+
+/* Fonts (free on Google Fonts, also available in Canva) */
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;700;800&display=swap");
+
+:root {
+  /* ------------------------------------------------------------------------
+     Palette (raw brand colors)
+     Use these only to build the semantic tokens below, not directly in
+     components. Blues are sampled from the logo.
+     ------------------------------------------------------------------------ */
+  --palette-navy: #003163;       /* logo navy */
+  --palette-deep-blue: #144575;  /* logo deep blue */
+  --palette-mid-blue: #5494B7;   /* logo hills, decorative only */
+  --palette-sky: #6FAAC6;        /* logo sky, decorative only */
+  --palette-haze: #A9CBDD;
+  --palette-cloud: #C7DCEB;
+  --palette-mist: #EEF4F8;
+  --palette-slate: #2B4257;
+  --palette-white: #FFFFFF;
+  --palette-line: #D6E3EC;
+
+  /* ------------------------------------------------------------------------
+     Color · surfaces
+     ------------------------------------------------------------------------ */
+  --color-background: var(--palette-mist);         /* page background */
+  --color-surface: var(--palette-white);           /* header, white sections */
+  --color-surface-tint: var(--palette-mist);       /* cards sitting on white */
+  --color-surface-accent: var(--palette-navy);     /* navy donation band */
+  --color-surface-placeholder: var(--palette-cloud); /* empty photo boxes */
+
+  /* ------------------------------------------------------------------------
+     Color · text
+     Contrast on Mist: text 11.7:1, text-weak 7.9:1
+     ------------------------------------------------------------------------ */
+  --color-text: var(--palette-navy);               /* headings, main text */
+  --color-text-weak: var(--palette-slate);         /* paragraphs, captions */
+  --color-text-link: var(--palette-deep-blue);     /* links, eyebrow labels */
+  --color-text-link-hover: var(--palette-navy);
+  --color-text-on-accent: var(--palette-white);    /* text on navy */
+  --color-text-on-accent-weak: var(--palette-cloud); /* paragraphs on navy, 9.2:1 */
+
+  /* ------------------------------------------------------------------------
+     Color · actions
+     ------------------------------------------------------------------------ */
+  --color-accent: var(--palette-navy);             /* primary buttons */
+  --color-accent-hover: var(--palette-deep-blue);
+  --color-accent-inverse: var(--palette-white);    /* primary button on navy */
+
+  /* ------------------------------------------------------------------------
+     Color · borders
+     ------------------------------------------------------------------------ */
+  --color-border: var(--palette-line);             /* dividers, header line */
+  --color-border-strong: var(--palette-navy);      /* secondary button outline */
+  --color-border-decorative: var(--palette-mid-blue); /* placeholder dashes */
+
+  /* ------------------------------------------------------------------------
+     Color · decorative (the layered hills)
+     Never use these for text: mid-blue and sky fail contrast on white.
+     ------------------------------------------------------------------------ */
+  --color-hill-far: var(--palette-cloud);
+  --color-hill-middle: var(--palette-sky);
+  --color-hill-near: var(--palette-mid-blue);
+  --color-hill-front: var(--palette-navy);
+
+  /* ------------------------------------------------------------------------
+     Typography · families
+     ------------------------------------------------------------------------ */
+  --font-family-heading: "Lora", Georgia, "Times New Roman", serif;
+  --font-family: "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
+
+  /* ------------------------------------------------------------------------
+     Typography · weights
+     ------------------------------------------------------------------------ */
+  --font-weight: 400;            /* body text */
+  --font-weight-heading: 600;    /* Lora headings */
+  --font-weight-strong: 700;     /* nav links, emphasis */
+  --font-weight-active: 800;     /* buttons, eyebrow labels */
+
+  /* ------------------------------------------------------------------------
+     Typography · sizes (rem, with 1rem = 16px)
+     The two largest sizes shrink smoothly on phones.
+     ------------------------------------------------------------------------ */
+  --font-size-xs: 0.875rem;                               /* 14px eyebrow */
+  --font-size-s: 1rem;                                    /* 16px footer, nav */
+  --font-size-m: 1.0625rem;                               /* 17px cards, buttons */
+  --font-size-l: 1.25rem;                                 /* 20px lead paragraph */
+  --font-size-xl: 1.5rem;                                 /* 24px card heading */
+  --font-size-xxl: clamp(1.875rem, 2vw + 1.25rem, 2.5rem);   /* 40px section heading */
+  --font-size-xxxl: clamp(2.375rem, 4vw + 1.25rem, 3.625rem); /* 58px page heading */
+  --font-size-quote: clamp(1.5rem, 1.5vw + 1.125rem, 1.875rem); /* 30px quote */
+
+  /* ------------------------------------------------------------------------
+     Typography · line height and spacing
+     ------------------------------------------------------------------------ */
+  --line-height: 1.6;            /* body text */
+  --line-height-heading: 1.15;   /* section headings */
+  --line-height-tight: 1.08;     /* page heading */
+  --letter-spacing-heading: -0.01em;
+  --letter-spacing-caps: 0.12em; /* uppercase eyebrow labels */
+
+  /* ------------------------------------------------------------------------
+     Space (4px base)
+     ------------------------------------------------------------------------ */
+  --space-xxs: 0.25rem;  /* 4px */
+  --space-xs: 0.5rem;    /* 8px */
+  --space-s: 0.75rem;    /* 12px */
+  --space-m: 1rem;       /* 16px */
+  --space-l: 1.5rem;     /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-xxl: 3rem;     /* 48px */
+  --space-xxxl: 4.5rem;  /* 72px section padding */
+
+  /* ------------------------------------------------------------------------
+     Shape
+     ------------------------------------------------------------------------ */
+  --border-radius: 10px;         /* buttons, cards, photos */
+  --border-radius-s: 6px;        /* small things: tags, inputs if 10px feels big */
+  --border-radius-circle: 50%;   /* avatars */
+  --border-width: 1px;
+  --border-width-strong: 2px;    /* secondary buttons */
+
+  /* ------------------------------------------------------------------------
+     Layout
+     ------------------------------------------------------------------------ */
+  --size-content-max: 1180px;    /* page container */
+  --size-text-max: 34em;         /* comfortable paragraph width */
+  --size-gutter: 2.5rem;         /* 40px page side padding */
+}
+
+/* ==========================================================================
+   Example usage (optional starter styles)
+   ========================================================================== */
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight);
+  line-height: var(--line-height);
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-heading);
+  text-wrap: balance;
+}
+h1 { font-size: var(--font-size-xxxl); line-height: var(--line-height-tight); letter-spacing: var(--letter-spacing-heading); }
+h2 { font-size: var(--font-size-xxl); }
+h3 { font-size: var(--font-size-xl); }
+
+p { margin: 0; color: var(--color-text-weak); max-width: var(--size-text-max); }
+
+a { color: var(--color-text-link); }
+a:hover { color: var(--color-text-link-hover); }
+
+.eyebrow {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-active);
+  letter-spacing: var(--letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--color-text-link);
+}
+
+.container {
+  max-width: var(--size-content-max);
+  margin-inline: auto;
+  padding-inline: var(--size-gutter);
+}
+
+.card {
+  background: var(--color-surface-tint);
+  border-radius: var(--border-radius);
+  padding: var(--space-l);
+}
+
+.button {
+  display: inline-block;
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-active);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  padding: var(--space-m) var(--space-xl);
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+  border: var(--border-width-strong) solid var(--color-accent);
+}
+.button:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); color: var(--color-text-on-accent); }
+
+.button-secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+.button-secondary:hover { background: var(--color-surface-tint); color: var(--color-text); }
+
+.band-accent {
+  background: var(--color-surface-accent);
+  color: var(--color-text-on-accent);
+}
+.band-accent p { color: var(--color-text-on-accent-weak); }
+.band-accent .button { background: var(--color-accent-inverse); color: var(--color-accent); border-color: var(--color-accent-inverse); }

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import PageBanner from '#lib/components/PageBanner.svelte';
-	import ServiceTimes from '#lib/components/ServiceTimes.svelte';
+	import PageBanner from '#lib/components/OLD/PageBanner.svelte';
+	import ServiceTimes from '#lib/components/OLD/ServiceTimes.svelte';
 
 	const director = {
 		name: 'Lee Whitlock',
