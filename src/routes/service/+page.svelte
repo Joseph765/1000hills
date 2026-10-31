@@ -26,7 +26,7 @@
 </script>
 
 <svelte:head>
-	<title>Services | 1000 Hills Ministry</title>
+	<title>Service | 1000 Hills Ministry</title>
 	<meta
 		name="description"
 		content="Church in the Field meets Monday through Saturday at 7:30 PM and Sunday at 3 PM at 2800 St. Charles St., Houston. Worship, the Word, prayer and a meal. Everyone is welcome."

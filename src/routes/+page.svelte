@@ -24,7 +24,7 @@
 	<title>Church in the Field · 1000 Hills Ministry</title>
 	<meta
 		name="description"
-		content="Every day, neighbors gather on a small patch of grass to share a meal, worship together, and remind each other that God loves them."
+		content="Every day, we gather on a small patch of grass to share a meal, worship together, and remind our neighbors that God loves them and so do we."
 	/>
 </svelte:head>
 
