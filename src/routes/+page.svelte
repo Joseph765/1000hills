@@ -52,8 +52,7 @@
 				<img src="/images/church-in-the-field.jpg" alt="[Who is in the photo]" width="1200" height="900" />
 			-->
 			<div class="photo-placeholder">
-				[Photo: phone selfie of the ministry leader with two volunteers and a friend from the field,
-				smiling, in daylight]
+				[Photo: selfie]
 			</div>
 			<Text as="figcaption" variant="caption">[Names], at Church in the Field</Text>
 		</figure>
