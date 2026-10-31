@@ -1,6 +1,9 @@
 <script lang="ts">
-	import PageBanner from '#lib/components/OLD/PageBanner.svelte';
-	import ServiceTimes from '#lib/components/OLD/ServiceTimes.svelte';
+	import Heading from '#lib/components/Heading.svelte';
+	import Text from '#lib/components/Text.svelte';
+	import Button from '#lib/components/Button.svelte';
+	import HillsDivider from '#lib/components/HillsDivider.svelte';
+	import ServiceTimes from '#lib/components/ServiceTimes.svelte';
 
 	const director = {
 		name: 'Lee Whitlock',
@@ -33,191 +36,201 @@
 	/>
 </svelte:head>
 
-<PageBanner
-	image="/images/prayer-circle.jpg"
-	imagePosition="100% 35%"
-	imageAlt="People gathered for an outdoor church service"
-	blur={4}
-	eyebrow="Contact us"
-	title="Get in touch"
-	intro="Questions about giving, volunteering, or how you and your group or family can get involved? We'd love to hear from you."
-/>
+<section class="hero" aria-labelledby="hero-title">
+	<div class="hero-inner">
+		<Text variant="eyebrow">Contact us</Text>
+		<Heading level={1} id="hero-title">Get in touch</Heading>
+		<Text size="l">
+			Questions about giving, volunteering, or how you and your group or family can get involved?
+			We'd love to hear from you.
+		</Text>
+	</div>
+</section>
 
-<section class="section" aria-label="Contact information">
-	<div class="container">
-		<div class="cards">
-			<!-- Director -->
-			<article class="card card--primary">
-				<p class="card__eyebrow">{director.role}</p>
-				<h2 class="card__title">{director.name}</h2>
-				<ul class="card__details">
-					<li><a href={telHref}>{director.phone}</a></li>
-					<li><a href="mailto:{director.email}">{director.email}</a></li>
-				</ul>
-				<div class="card__actions">
-					<a class="btn btn--primary" href={telHref}>Call</a>
-					<a class="btn btn--secondary" href="mailto:{director.email}">Email</a>
-				</div>
-			</article>
+<HillsDivider groundColor="var(--color-surface)" />
 
-			<!-- Mailing address -->
-			<article class="card">
-				<p class="card__eyebrow">Mailing address</p>
-				<h2 class="card__title">{mailing.name}</h2>
-				<address class="card__address">
-					{#each mailing.lines as line (line)}
-						{line}<br />
-					{/each}
-				</address>
-			</article>
-
-			<!-- Board -->
-			<article class="card">
-				<p class="card__eyebrow">Leadership</p>
-				<h2 class="card__title">Board of Directors</h2>
-				<ul class="board">
-					{#each board as member (member.name)}
-						<li>
-							<span class="board__name">{member.name}</span>
-							{#if member.role}<span class="board__role">{member.role}</span>{/if}
-						</li>
-					{/each}
-				</ul>
-			</article>
+<section class="director" aria-labelledby="director-title">
+	<div class="director-inner">
+		<div class="director-copy">
+			<Text variant="eyebrow">{director.role}</Text>
+			<Heading level={2} id="director-title">{director.name}</Heading>
+			<ul class="director-details">
+				<li><Text as="span" size="l" tone="link"><a href={telHref}>{director.phone}</a></Text></li>
+				<li>
+					<Text as="span" size="l" tone="link"
+						><a href="mailto:{director.email}">{director.email}</a></Text
+					>
+				</li>
+			</ul>
+			<div class="director-actions">
+				<Button href={telHref} block="mobile">Call</Button>
+				<Button href="mailto:{director.email}" variant="secondary" block="mobile">Email</Button>
+			</div>
 		</div>
+
+		<figure class="director-photo">
+			<!--
+				Swap this placeholder for a real photo, e.g.
+				<img src="/images/....jpg" alt="Lee Whitlock, director of 1000 Hills Ministry" width="900" height="1125" />
+			-->
+			<div class="photo-placeholder">[Photo: Lee Whitlock, the director]</div>
+		</figure>
 	</div>
 </section>
 
 <ServiceTimes id="our-church" eyebrow="Our church" showMap />
 
+<section class="more" aria-label="Mailing address and board of directors">
+	<div class="more-inner">
+		<Text variant="eyebrow">Mailing &amp; leadership</Text>
+		<div class="more-cards">
+			<div class="card">
+				<Text variant="eyebrow">Mailing address</Text>
+				<Heading level={3} size="l">{mailing.name}</Heading>
+				<address class="card-address">
+					{#each mailing.lines as line (line)}
+						{line}<br />
+					{/each}
+				</address>
+			</div>
+
+			<div class="card">
+				<Text variant="eyebrow">Leadership</Text>
+				<Heading level={3} size="l">Board of Directors</Heading>
+				<ul class="board">
+					{#each board as member (member.name)}
+						<li>
+							<Text as="span" weight="strong">{member.name}</Text>
+							{#if member.role}<Text as="span" size="s" tone="weak">{member.role}</Text>{/if}
+						</li>
+					{/each}
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
 <style>
-	.section {
-		--navy: #0e1e3c;
-		--blue: #1f3f75;
-		--accent: #c85f1c;
-		--accent-hover: #a94d14;
-		--cream: #f6f3ee;
-		--display-font: var(--font-display, 'Oswald', 'Bebas Neue', Impact, sans-serif);
-		--body-font: var(--font-body, 'Inter', system-ui, -apple-system, sans-serif);
-
-		padding: 3rem 1.25rem 3.5rem;
-		background: #fff;
-		color: var(--navy);
-		font-family: var(--body-font);
+	/* ---------- Hero ---------- */
+	.hero {
+		background: var(--color-background);
 	}
 
-	.section,
-	.section * {
-		box-sizing: border-box;
+	.hero-inner {
+		max-width: var(--size-content-max);
+		margin-inline: auto;
+		padding: var(--space-xxxl) var(--size-gutter) var(--space-xxl);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-m);
 	}
 
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
+	/* ---------- Director (white, photo + contact) ---------- */
+	.director {
+		background: var(--color-surface);
 	}
 
-	.cards {
-		display: grid;
-		gap: 1rem;
-	}
-
-	/* ---------- Cards ---------- */
-	.card {
-		padding: 1.75rem 1.5rem;
-		border-top: 4px solid var(--accent);
-		border-radius: 8px;
-		background: var(--cream);
-	}
-
-	.card--primary {
-		border-top-color: transparent;
-		background: var(--navy);
-		color: #fff;
-	}
-
-	.card__eyebrow {
-		margin: 0 0 0.5rem;
-		font-size: 0.75rem;
-		font-weight: 600;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: var(--accent);
-	}
-
-	.card--primary .card__eyebrow {
-		color: #f3b27f;
-	}
-
-	.card__title {
-		margin: 0;
-		font-family: var(--display-font);
-		font-size: 1.75rem;
-		font-weight: 700;
-		line-height: 1.1;
-		text-transform: uppercase;
-	}
-
-	.card__details {
-		margin: 1rem 0 0;
-		padding: 0;
-		list-style: none;
-		font-size: 1.05rem;
-		line-height: 1.7;
-	}
-
-	.card__details a {
-		color: #fff;
-		text-decoration: none;
-		overflow-wrap: anywhere;
-	}
-
-	.card__actions {
+	.director-inner {
+		max-width: var(--size-content-max);
+		margin-inline: auto;
+		padding: var(--space-xxl) var(--size-gutter);
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.75rem;
-		margin-top: 1.5rem;
+		align-items: center;
+		gap: var(--space-xxl) 3.5rem;
 	}
 
-	.btn {
-		display: inline-flex;
-		flex: 1 1 8rem;
+	.director-copy {
+		flex: 1 1 400px;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-m);
+	}
+
+	.director-details {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+	}
+
+	.director-details a:hover {
+		color: var(--color-text-link-hover);
+	}
+
+	.director-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xs);
+		padding-top: var(--space-xxs);
+	}
+
+	.director-photo {
+		flex: 1 1 280px;
+		min-width: 0;
+		margin: 0;
+	}
+
+	.photo-placeholder {
+		aspect-ratio: 4 / 5;
+		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 48px;
-		padding: 0.7rem 1.25rem;
-		border: 2px solid transparent;
-		border-radius: 4px;
-		font-family: var(--display-font);
-		font-size: 1.05rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		text-decoration: none;
-		transition:
-			background-color 0.2s ease,
-			color 0.2s ease;
+		padding: var(--space-xl);
+		box-sizing: border-box;
+		text-align: center;
+		font-size: var(--font-size-m);
+		line-height: 1.5;
+		color: var(--color-text);
+		background: var(--color-surface-placeholder);
+		border: var(--border-width-strong) dashed var(--color-border-decorative);
+		border-radius: var(--border-radius);
 	}
 
-	.btn--primary {
-		background: var(--accent);
-		color: #fff;
+	/* ---------- Mailing & leadership (white) ---------- */
+	.more {
+		background: var(--color-surface);
 	}
 
-	.btn--secondary {
-		border-color: rgb(255 255 255 / 0.85);
-		color: #fff;
+	.more-inner {
+		max-width: var(--size-content-max);
+		margin-inline: auto;
+		padding: var(--space-xxl) var(--size-gutter) var(--space-xxxl);
 	}
 
-	.card__address {
-		margin-top: 1rem;
-		font-size: 1.05rem;
+	.more-cards {
+		margin-top: var(--space-m);
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		gap: var(--space-m);
+	}
+
+	.card {
+		flex: 1 1 280px;
+		min-width: 0;
+		padding: var(--space-l);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+		background: var(--color-surface-tint);
+		border-radius: var(--border-radius);
+	}
+
+	.card-address {
+		margin-top: var(--space-xs);
 		font-style: normal;
-		line-height: 1.7;
-		color: rgb(14 30 60 / 0.85);
+		font-family: var(--font-family);
+		font-size: var(--font-size-m);
+		line-height: var(--line-height);
+		color: var(--color-text-weak);
 	}
 
 	.board {
-		margin: 1rem 0 0;
+		margin: var(--space-xs) 0 0;
 		padding: 0;
 		list-style: none;
 	}
@@ -227,65 +240,23 @@
 		flex-wrap: wrap;
 		align-items: baseline;
 		justify-content: space-between;
-		gap: 0 1rem;
-		padding: 0.6rem 0;
-		border-bottom: 1px solid rgb(14 30 60 / 0.1);
-		font-size: 1rem;
+		gap: 0 var(--space-m);
+		padding: var(--space-s) 0;
+		border-bottom: var(--border-width) solid var(--color-border);
 	}
 
 	.board li:last-child {
 		border-bottom: 0;
 	}
 
-	.board__name {
-		font-weight: 600;
-	}
-
-	.board__role {
-		font-size: 0.9rem;
-		color: rgb(14 30 60 / 0.65);
-	}
-
-	.card a:focus-visible {
-		outline: 3px solid #fff;
-		outline-offset: 3px;
-		border-radius: 2px;
-	}
-
-	@media (hover: hover) {
-		.card__details a:hover {
-			text-decoration: underline;
-			text-underline-offset: 3px;
+	@media (max-width: 900px) {
+		.hero-inner,
+		.director-inner,
+		.more-inner {
+			padding-inline: var(--space-m);
 		}
-		.btn--primary:hover {
-			background: var(--accent-hover);
-		}
-		.btn--secondary:hover {
-			background: #fff;
-			color: var(--navy);
-		}
-	}
-
-	/* ---------- Desktop ---------- */
-	@media (min-width: 900px) {
-		.section {
-			padding: 4.5rem 2rem 5rem;
-		}
-
-		.cards {
-			grid-template-columns: 1.15fr 1fr 1fr;
-			align-items: start;
-			gap: 1.5rem;
-		}
-
-		.card {
-			padding: 2rem;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.btn {
-			transition: none;
+		.hero-inner {
+			padding-block: 2.5rem var(--space-xl);
 		}
 	}
 </style>

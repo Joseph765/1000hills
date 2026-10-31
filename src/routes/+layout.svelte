@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '#lib/styles/tokens.css';
 	import Nav from '#lib/components/Nav.svelte';
+	import Footer from '#lib/components/Footer.svelte';
 
 	let { children } = $props();
 </script>
@@ -12,6 +13,8 @@
 <main id="main">
 	{@render children()}
 </main>
+
+<Footer />
 
 <style>
 	.skip-link {

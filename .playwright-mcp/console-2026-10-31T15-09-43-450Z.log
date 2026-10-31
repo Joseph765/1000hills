@@ -1,0 +1,14 @@
+[    3965ms] [ERROR] WebSocket connection to 'ws://localhost:5208/?token=yNp-LLRQ4mti' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5208/@vite/client:958
+[    7540ms] [ERROR] WebSocket connection to 'ws://localhost:5208/?token=yNp-LLRQ4mti' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5208/@vite/client:968
+[    7541ms] [ERROR] [vite] failed to connect to websocket.
+your current setup:
+  (browser) localhost:5208/ <--[HTTP]--> localhost:5208/ (server)
+  (browser) localhost:5208/ <--[WebSocket (failing)]--> localhost:5208/ (server)
+Check out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr . @ http://localhost:5208/@vite/client:367
+[    7542ms] [ERROR] Failed to send error to Vite server: TypeError: Cannot read properties of undefined (reading 'send')
+    at Object.send (http://localhost:5208/@vite/client:262:7)
+    at Object.send (http://localhost:5208/@vite/client:994:16)
+    at Object.send (http://localhost:5208/@vite/client:121:21)
+    at Object.send (http://localhost:5208/@vite/client:201:30)
+    at sendError (http://localhost:5208/@vite/client:329:19)
+    at sendLog (http://localhost:5208/@vite/client:357:11) @ http://localhost:5208/@vite/client:358

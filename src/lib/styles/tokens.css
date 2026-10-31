@@ -32,6 +32,7 @@
   --color-surface-tint: var(--palette-mist);       /* cards sitting on white */
   --color-surface-accent: var(--palette-navy);     /* navy donation band */
   --color-surface-placeholder: var(--palette-cloud); /* empty photo boxes */
+  --color-surface-feature: var(--palette-haze);    /* light-blue feature band (e.g. video), navy text 7.6:1 */
 
   /* ------------------------------------------------------------------------
      Color · text
@@ -47,15 +48,17 @@
   /* ------------------------------------------------------------------------
      Color · actions
      ------------------------------------------------------------------------ */
-  --color-accent: var(--palette-navy);             /* primary buttons */
-  --color-accent-hover: var(--palette-deep-blue);
+  --color-accent: var(--palette-navy);             /* primary buttons, white text 13.0:1 */
+  --color-accent-hover: var(--palette-haze);       /* primary hover: navy flips to haze */
+  --color-text-on-accent-hover: var(--palette-navy); /* text on haze, 7.6:1 */
+  --color-accent-active: var(--palette-sky);       /* pressed state, navy text 5.1:1 */
   --color-accent-inverse: var(--palette-white);    /* primary button on navy */
 
   /* ------------------------------------------------------------------------
      Color · borders
      ------------------------------------------------------------------------ */
   --color-border: var(--palette-line);             /* dividers, header line */
-  --color-border-strong: var(--palette-navy);      /* secondary button outline */
+  --color-border-strong: var(--palette-navy);      /* secondary button outline, hover edge */
   --color-border-decorative: var(--palette-mid-blue); /* placeholder dashes */
 
   /* ------------------------------------------------------------------------
@@ -66,6 +69,11 @@
   --color-hill-middle: var(--palette-sky);
   --color-hill-near: var(--palette-mid-blue);
   --color-hill-front: var(--palette-navy);
+
+  /* ------------------------------------------------------------------------
+     Color · status
+     ------------------------------------------------------------------------ */
+  --color-status-live: #4ade80;                    /* "happening now" indicator dot */
 
   /* ------------------------------------------------------------------------
      Typography · families
@@ -194,7 +202,7 @@ a:hover { color: var(--color-text-link-hover); }
   color: var(--color-text-on-accent);
   border: var(--border-width-strong) solid var(--color-accent);
 }
-.button:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); color: var(--color-text-on-accent); }
+.button:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); color: var(--color-text-on-accent-hover); }
 
 .button-secondary {
   background: var(--color-surface);

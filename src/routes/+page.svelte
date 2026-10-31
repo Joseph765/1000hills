@@ -2,6 +2,22 @@
 	import Heading from '#lib/components/Heading.svelte';
 	import Text from '#lib/components/Text.svelte';
 	import Button from '#lib/components/Button.svelte';
+	import HillsDivider from '#lib/components/HillsDivider.svelte';
+
+	const happens = [
+		{
+			title: 'A different church each day',
+			text: 'Churches across Houston take turns hosting, so the field is never empty.'
+		},
+		{
+			title: 'A meal to share',
+			text: "Often it's pizza. It's always served with a smile and a conversation."
+		},
+		{
+			title: 'Worship and the Word',
+			text: 'Songs, prayer, and a message of hope for anyone who needs it.'
+		}
+	];
 </script>
 
 <svelte:head>
@@ -25,8 +41,8 @@
 			</Text>
 
 			<div class="hero-actions">
-				<Button href="/give" block="mobile">Give today</Button>
-				<Button href="/volunteer" variant="secondary" block="mobile">Volunteer</Button>
+				<Button href="https://www.paypal.com/donate/?hosted_button_id=CMTD9CKPZFAJU" block="mobile" target="_blank">Give today</Button>
+				<Button href="/contact" variant="secondary" block="mobile">Volunteer</Button>
 			</div>
 		</div>
 
@@ -44,13 +60,89 @@
 	</div>
 </section>
 
-<svg class="hills" viewBox="0 0 1200 110" preserveAspectRatio="none" aria-hidden="true">
-	<path class="hill-far" d="M0 56 C200 20 380 50 560 32 C760 12 960 50 1200 22 L1200 110 L0 110 Z" />
-	<path class="hill-middle" d="M0 84 C220 54 420 80 640 64 C860 48 1020 76 1200 62 L1200 110 L0 110 Z" />
-	<path class="hill-ground" d="M0 102 C260 84 500 100 760 90 C960 82 1100 96 1200 92 L1200 110 L0 110 Z" />
-</svg>
+<HillsDivider groundColor="var(--color-surface)" />
+
+<section class="happens" aria-labelledby="happens-title">
+	<div class="happens-inner">
+		<div class="happens-header">
+			<Heading level={2} id="happens-title">What happens in the field</Heading>
+			<Text size="l">
+				Nothing fancy. Just neighbors, a meal, and the good news, every single day.
+			</Text>
+		</div>
+
+		<ul class="cards">
+			{#each happens as item (item.title)}
+				<li class="card">
+					<Heading level={3} size="l">{item.title}</Heading>
+					<Text>{item.text}</Text>
+				</li>
+			{/each}
+		</ul>
+	</div>
+</section>
+
+<section class="donate" aria-labelledby="donate-title">
+	<div class="donate-inner">
+		<div class="donate-copy">
+			<Heading level={2} id="donate-title" tone="on-accent">
+				$100 feeds everyone in the field for one night.
+			</Heading>
+			<Text size="l" tone="on-accent-weak">
+				Your gift buys the food and [what else a gift covers]. Every dollar stays here in
+				Houston.
+			</Text>
+		</div>
+
+		<Button
+			href="https://www.paypal.com/donate/?hosted_button_id=CMTD9CKPZFAJU"
+			variant="inverse"
+			block="mobile"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			Give today<span class="visually-hidden"> (opens in a new tab)</span>
+		</Button>
+	</div>
+</section>
+
+<section class="meal" aria-label="A word about serving">
+	<div class="meal-inner">
+		<figure class="meal-photo">
+			<!--
+				Swap this placeholder for the real photo, e.g.
+				<img src="/images/....jpg" alt="[Who is in the photo]" width="1200" height="900" />
+			-->
+			<div class="photo-placeholder">
+				[Photo: a volunteer serving a plate of food to someone at Church in the Field]
+			</div>
+		</figure>
+
+		<figure class="meal-copy">
+			<blockquote>
+				<Text as="p" variant="caption" size="l" tone="default" measure={false}>
+					"For I was hungry and you gave me food, I was thirsty and you gave me drink, I was a
+					stranger and you welcomed me."
+				</Text>
+			</blockquote>
+			<Text as="figcaption" variant="eyebrow">Matthew 25:35 · ESV</Text>
+		</figure>
+	</div>
+</section>
 
 <style>
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
 	.hero {
 		background: var(--color-background);
 	}
@@ -114,23 +206,113 @@
 		border-radius: var(--border-radius);
 	}
 
-	/* Layered hills between the hero and the next (white) section */
-	.hills {
-		display: block;
-		width: 100%;
-		height: 110px;
+	/* ---------- What happens in the field (white) ---------- */
+	.happens {
+		background: var(--color-surface);
+	}
+
+	.happens-inner {
+		max-width: var(--size-content-max);
+		margin-inline: auto;
+		padding: var(--space-xxxl) var(--size-gutter);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xl);
+	}
+
+	.happens-header {
+		max-width: 40rem;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-s);
+	}
+
+	.cards {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-m);
+	}
+
+	.card {
+		flex: 1 1 260px;
+		min-width: 0;
+		padding: var(--space-l);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+		background: var(--color-surface-tint);
+		border-radius: var(--border-radius);
+	}
+
+	/* ---------- Donate (navy) ---------- */
+	.donate {
+		background: var(--color-surface-accent);
+	}
+
+	.donate-inner {
+		max-width: var(--size-content-max);
+		margin-inline: auto;
+		padding: var(--space-xxxl) var(--size-gutter);
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-xl);
+	}
+
+	.donate-copy {
+		flex: 1 1 520px;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-m);
+	}
+
+	/* ---------- A word about serving (mist) ---------- */
+	.meal {
 		background: var(--color-background);
 	}
-	.hill-far { fill: var(--color-hill-far); }
-	.hill-middle { fill: var(--color-hill-middle); }
-	.hill-ground { fill: var(--color-surface); }
+
+	.meal-inner {
+		max-width: var(--size-content-max);
+		margin-inline: auto;
+		padding: var(--space-xxxl) var(--size-gutter);
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-xxl) 3.5rem;
+	}
+
+	.meal-photo {
+		flex: 1 1 420px;
+		min-width: 0;
+		margin: 0;
+	}
+
+	.meal-copy {
+		flex: 1 1 440px;
+		min-width: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+	}
+
+	.meal-copy blockquote {
+		margin: 0;
+	}
 
 	@media (max-width: 900px) {
 		.hero-inner {
 			padding: 2.5rem var(--space-m) var(--space-xl);
 		}
-		.hills {
-			height: 64px;
+		.happens-inner,
+		.donate-inner,
+		.meal-inner {
+			padding-inline: var(--space-m);
 		}
 	}
 </style>

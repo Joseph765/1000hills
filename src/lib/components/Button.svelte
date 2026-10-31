@@ -93,41 +93,69 @@
 		border-color: var(--color-accent);
 		color: var(--color-text-on-accent);
 	}
+	/* Primary: navy → pale haze with navy text and a navy edge.
+	   The edge matters: the hover fill is light enough that without it the
+	   button would soften into the Mist page background. */
 	.primary:hover {
 		background: var(--color-accent-hover);
-		border-color: var(--color-accent-hover);
-		color: var(--color-text-on-accent);
+		border-color: var(--color-border-strong);
+		color: var(--color-text-on-accent-hover);
+	}
+	.primary:active {
+		background: var(--color-accent-active);
+		border-color: var(--color-border-strong);
+		color: var(--color-text-on-accent-hover);
 	}
 
+	/* Secondary: white with navy outline → fills solid navy */
 	.secondary {
 		background: var(--color-surface);
 		border-color: var(--color-border-strong);
 		color: var(--color-text);
 	}
 	.secondary:hover {
-		background: var(--color-surface-tint);
-		color: var(--color-text);
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+		color: var(--color-text-on-accent);
+	}
+	.secondary:active {
+		background: var(--color-accent-hover);
+		border-color: var(--color-accent-hover);
+		color: var(--color-text-on-accent-hover);
 	}
 
+	/* Inverse (on navy): white → haze → sky, each step a little darker */
 	.inverse {
 		background: var(--color-accent-inverse);
 		border-color: var(--color-accent-inverse);
 		color: var(--color-accent);
 	}
 	.inverse:hover {
-		background: var(--color-surface-tint);
-		border-color: var(--color-surface-tint);
-		color: var(--color-accent);
+		background: var(--color-accent-hover);
+		border-color: var(--color-accent-hover);
+		color: var(--color-text-on-accent-hover);
+	}
+	.inverse:active {
+		background: var(--color-accent-active);
+		border-color: var(--color-accent-active);
+		color: var(--color-text-on-accent-hover);
 	}
 
+	/* Outline inverse (on navy): white outline → fills solid white */
 	.outline-inverse {
 		background: transparent;
 		border-color: var(--color-text-on-accent);
 		color: var(--color-text-on-accent);
 	}
 	.outline-inverse:hover {
-		background: rgb(255 255 255 / 0.1);
-		color: var(--color-text-on-accent);
+		background: var(--color-accent-inverse);
+		border-color: var(--color-accent-inverse);
+		color: var(--color-accent);
+	}
+	.outline-inverse:active {
+		background: var(--color-accent-hover);
+		border-color: var(--color-accent-hover);
+		color: var(--color-text-on-accent-hover);
 	}
 
 	/* Keyboard focus */

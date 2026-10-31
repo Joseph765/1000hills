@@ -1,4 +1,16 @@
+<!--
+  ServiceTimes
+  Schedule, live/next-service indicator, location and an optional map.
+  Used on both /contact and (once migrated) /service.
+
+  <ServiceTimes />
+  <ServiceTimes id="our-church" eyebrow="Our church" showMap />
+-->
 <script lang="ts">
+	import Heading from './Heading.svelte';
+	import Text from './Text.svelte';
+	import Button from './Button.svelte';
+
 	type Service = {
 		/** What visitors read, e.g. "Monday – Saturday" */
 		label: string;
@@ -128,15 +140,12 @@
 </script>
 
 <section class="services" {id} aria-labelledby="{id}-heading">
-	<div class="services__inner">
-		<div class="services__intro">
-			{#if eyebrow}
-				<p class="services__eyebrow">{eyebrow}</p>
-			{/if}
-			<h2 id="{id}-heading" class="services__heading">{heading}</h2>
-			{#if intro}
-				<p class="services__text">{intro}</p>
-			{/if}
+	<div class="services-inner">
+		<div class="services-copy">
+			{#if eyebrow}<Text variant="eyebrow">{eyebrow}</Text>{/if}
+			<Heading level={2} id="{id}-heading">{heading}</Heading>
+			{#if intro}<Text size="l">{intro}</Text>{/if}
+
 			{#if showMap}
 				<div class="map">
 					<iframe
@@ -150,110 +159,83 @@
 		</div>
 
 		<div class="card">
-			<p class="card__next" class:live={next?.live} aria-live="polite">
-				{#if next}
-					<span class="dot" aria-hidden="true"></span>
-					{next.text}
-				{:else}
-					Every day of the week
-				{/if}
+			<p class="card-next" class:live={next?.live} aria-live="polite">
+				<span class="dot" aria-hidden="true"></span>
+				{next ? next.text : 'Every day of the week'}
 			</p>
 
-			<dl class="schedule">
-				{#each schedule as service (service.label)}
-					<div class="schedule__row">
-						<dt>{service.label}</dt>
-						<dd>{formatTime(service.time)}</dd>
-					</div>
-				{/each}
-			</dl>
+			<div class="card-body">
+				<dl class="schedule">
+					{#each schedule as service (service.label)}
+						<div class="schedule-row">
+							<dt>{service.label}</dt>
+							<dd>{formatTime(service.time)}</dd>
+						</div>
+					{/each}
+				</dl>
 
-			<div class="location">
-				<svg class="location__icon" viewBox="0 0 24 24" aria-hidden="true">
-					<path
-						d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"
-					/>
-				</svg>
-				<address>
-					<span class="location__name">{locationName}</span>
-					{street}<br />
-					{cityLine}
-				</address>
+				<div class="location">
+					<svg class="location-icon" viewBox="0 0 24 24" aria-hidden="true">
+						<path
+							d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"
+						/>
+					</svg>
+					<address>
+						<span class="location-name">{locationName}</span>
+						{street}<br />
+						{cityLine}
+					</address>
+				</div>
+
+				<Button href={directionsUrl} target="_blank" rel="noopener noreferrer" block>
+					Get directions<span class="visually-hidden"> (opens Google Maps)</span>
+				</Button>
 			</div>
-
-			<a class="directions" href={directionsUrl} target="_blank" rel="noopener noreferrer">
-				Get directions
-				<span class="sr-only">(opens Google Maps)</span>
-			</a>
 		</div>
 	</div>
 </section>
 
 <style>
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
 	.services {
-		--svc-navy: #0e1e3c;
-		--svc-blue: #1f3f75;
-		--svc-accent: #c85f1c;
-		--svc-cream: #f6f3ee;
-		--svc-display-font: var(--font-display, 'Oswald', 'Bebas Neue', Impact, sans-serif);
-		--svc-body-font: var(--font-body, 'Inter', system-ui, -apple-system, sans-serif);
-
-		background: var(--svc-cream);
-		color: var(--svc-navy);
-		padding: 3.5rem 1.25rem;
+		background: var(--color-background);
+		padding: var(--space-xxl) var(--size-gutter);
 	}
 
-	.services,
-	.services *,
-	.services *::before,
-	.services *::after {
-		box-sizing: border-box;
+	.services-inner {
+		max-width: var(--size-content-max);
+		margin-inline: auto;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-xxl) 3.5rem;
 	}
 
-	.services__inner {
-		display: grid;
-		gap: 2rem;
-		max-width: 1200px;
-		margin: 0 auto;
+	.services-copy {
+		flex: 1 1 400px;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-s);
 	}
 
-	/* ---------- Intro ---------- */
-	.services__eyebrow {
-		margin: 0 0 0.75rem;
-		font-family: var(--svc-body-font);
-		font-size: 0.75rem;
-		font-weight: 600;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: var(--svc-accent);
-	}
-
-	.services__heading {
-		margin: 0;
-		font-family: var(--svc-display-font);
-		font-size: clamp(2rem, 8vw, 2.5rem);
-		font-weight: 700;
-		line-height: 1.05;
-		text-transform: uppercase;
-	}
-
-	.services__text {
-		max-width: 46ch;
-		margin: 1rem 0 0;
-		font-family: var(--svc-body-font);
-		font-size: 1.05rem;
-		line-height: 1.6;
-		color: rgb(14 30 60 / 0.8);
-	}
-
-	/* ---------- Optional map ---------- */
 	.map {
 		overflow: hidden;
-		margin-top: 1.75rem;
+		margin-top: var(--space-s);
 		aspect-ratio: 4 / 3;
-		border-radius: 8px;
-		background: #e5e2dc;
-		box-shadow: 0 1px 2px rgb(14 30 60 / 0.06);
+		border-radius: var(--border-radius);
+		background: var(--color-surface-placeholder);
 	}
 
 	.map iframe {
@@ -271,167 +253,108 @@
 
 	/* ---------- Card ---------- */
 	.card {
+		flex: 1 1 360px;
+		min-width: 0;
 		overflow: hidden;
-		border-radius: 8px;
-		background: #fff;
-		box-shadow:
-			0 1px 2px rgb(14 30 60 / 0.06),
-			0 12px 32px rgb(14 30 60 / 0.08);
-		font-family: var(--svc-body-font);
+		background: var(--color-surface);
+		border-radius: var(--border-radius);
+		box-shadow: 0 12px 32px rgb(0 0 0 / 0.08);
 	}
 
-	.card__next {
+	.card-next {
 		display: flex;
 		align-items: center;
-		gap: 0.6rem;
+		gap: var(--space-xs);
 		min-height: 3.25rem;
 		margin: 0;
-		padding: 0.9rem 1.25rem;
-		background: var(--svc-navy);
-		color: #fff;
-		font-size: 0.95rem;
-		font-weight: 600;
+		padding: var(--space-m) var(--space-l);
+		background: var(--color-surface-accent);
+		color: var(--color-text-on-accent);
+		font-family: var(--font-family);
+		font-size: var(--font-size-s);
+		font-weight: var(--font-weight-strong);
 	}
 
 	.dot {
 		flex: none;
 		width: 0.55rem;
 		height: 0.55rem;
-		border-radius: 50%;
-		background: #f3b27f;
+		border-radius: var(--border-radius-circle);
+		background: var(--color-accent-hover);
 	}
 
-	.card__next.live .dot {
-		background: #4ade80;
+	.card-next.live .dot {
+		background: var(--color-status-live);
 		box-shadow: 0 0 0 0 rgb(74 222 128 / 0.6);
 		animation: pulse 1.8s ease-out infinite;
 	}
 
-	.schedule {
-		margin: 0;
-		padding: 0.5rem 1.25rem;
+	.card-body {
+		padding: var(--space-l);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-m);
 	}
 
-	.schedule__row {
+	.schedule {
+		margin: 0;
+	}
+
+	.schedule-row {
 		display: flex;
 		align-items: baseline;
 		justify-content: space-between;
-		gap: 1rem;
-		padding: 1rem 0;
+		gap: var(--space-m);
+		padding: var(--space-s) 0;
 	}
 
-	.schedule__row + .schedule__row {
-		border-top: 1px solid rgb(14 30 60 / 0.1);
+	.schedule-row + .schedule-row {
+		border-top: var(--border-width) solid var(--color-border);
 	}
 
 	.schedule dt {
-		font-size: 1rem;
-		font-weight: 600;
+		font-family: var(--font-family);
+		font-size: var(--font-size-m);
+		font-weight: var(--font-weight-strong);
+		color: var(--color-text);
 	}
 
 	.schedule dd {
 		margin: 0;
-		font-family: var(--svc-display-font);
-		font-size: 1.6rem;
-		font-weight: 700;
-		letter-spacing: 0.02em;
+		font-family: var(--font-family-heading);
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-heading);
 		white-space: nowrap;
-		color: var(--svc-accent);
+		color: var(--color-text-link);
 	}
 
 	.location {
 		display: flex;
-		gap: 0.75rem;
-		margin: 0 1.25rem;
-		padding: 1.25rem 0;
-		border-top: 1px solid rgb(14 30 60 / 0.1);
+		gap: var(--space-s);
+		padding-top: var(--space-m);
+		border-top: var(--border-width) solid var(--color-border);
 	}
 
-	.location__icon {
+	.location-icon {
 		flex: none;
 		width: 1.4rem;
 		height: 1.4rem;
 		margin-top: 0.1rem;
-		fill: var(--svc-blue);
+		fill: var(--color-text-link);
 	}
 
 	address {
 		font-style: normal;
-		font-size: 1rem;
-		line-height: 1.5;
-		color: rgb(14 30 60 / 0.85);
+		font-family: var(--font-family);
+		font-size: var(--font-size-s);
+		line-height: var(--line-height);
+		color: var(--color-text-weak);
 	}
 
-	.location__name {
+	.location-name {
 		display: block;
-		font-weight: 600;
-		color: var(--svc-navy);
-	}
-
-	.directions {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 48px;
-		margin: 0 1.25rem 1.25rem;
-		border-radius: 4px;
-		background: var(--svc-blue);
-		color: #fff;
-		font-family: var(--svc-display-font);
-		font-size: 1.05rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		text-decoration: none;
-		transition: background-color 0.2s ease;
-	}
-
-	.directions:focus-visible {
-		outline: 3px solid var(--svc-accent);
-		outline-offset: 3px;
-	}
-
-	@media (hover: hover) {
-		.directions:hover {
-			background: var(--svc-navy);
-		}
-	}
-
-	.sr-only {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		margin: -1px;
-		padding: 0;
-		overflow: hidden;
-		clip: rect(0 0 0 0);
-		white-space: nowrap;
-		border: 0;
-	}
-
-	/* ---------- Desktop ---------- */
-	@media (min-width: 900px) {
-		.services {
-			padding: 5.5rem 2rem;
-		}
-
-		.services__inner {
-			grid-template-columns: 1fr minmax(0, 440px);
-			align-items: center;
-			gap: 4rem;
-		}
-
-		.services__eyebrow {
-			font-size: 0.875rem;
-		}
-
-		.services__heading {
-			font-size: clamp(2.75rem, 4.5vw, 3.75rem);
-		}
-
-		.services__text {
-			font-size: 1.15rem;
-		}
+		font-weight: var(--font-weight-strong);
+		color: var(--color-text);
 	}
 
 	@keyframes pulse {
@@ -440,12 +363,15 @@
 		}
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		.card__next.live .dot {
-			animation: none;
+	@media (max-width: 900px) {
+		.services {
+			padding-inline: var(--space-m);
 		}
-		.directions {
-			transition: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.card-next.live .dot {
+			animation: none;
 		}
 	}
 </style>
