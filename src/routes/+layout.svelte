@@ -1,21 +1,35 @@
-<script>
-	import '../app.css';
-	import favicon from '#lib/assets/favicon.svg';
-	import Nav from '../lib/components/Nav.svelte';
-	import Footer from '../lib/components/Footer.svelte';
+<script lang="ts">
+	import '#lib/styles/tokens.css';
+	import Nav from '#lib/components/Nav.svelte';
+	import Footer from '#lib/components/Footer.svelte';
 
-	/** @type {{children: import('svelte').Snippet}} */
 	let { children } = $props();
 </script>
 
-<svelte:head>
-	<link rel="icon" href={favicon} />
-</svelte:head>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<Nav logo="/logo.png" />
+<Nav />
 
-<main>
+<main id="main">
 	{@render children()}
 </main>
 
-<Footer logo="/logo.png" facebookUrl="https://www.facebook.com/1000Hills/" />
+<Footer />
+
+<style>
+	.skip-link {
+		position: absolute;
+		left: var(--space-m);
+		top: -100px;
+		z-index: 100;
+		padding: var(--space-s) var(--space-m);
+		background: var(--color-accent);
+		color: var(--color-text-on-accent);
+		font-weight: var(--font-weight-active);
+		border-radius: var(--border-radius);
+		text-decoration: none;
+	}
+	.skip-link:focus {
+		top: var(--space-m);
+	}
+</style>
