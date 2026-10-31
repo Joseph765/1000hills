@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>About | 1000 Hills Ministry International</title>
+	<title>About | 1000 Hills Ministry</title>
 	<meta
 		name="description"
 		content="1000 Hills is a local family of churches who show up every day, so no one in Houston faces despair alone. Our mission, what we believe, and the Disciple House."
