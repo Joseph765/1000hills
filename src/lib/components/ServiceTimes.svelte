@@ -265,6 +265,7 @@
 		display: flex;
 		align-items: center;
 		gap: var(--space-xs);
+		border-radius: var(--border-radius);
 		min-height: 3.25rem;
 		margin: 0;
 		padding: var(--space-m) var(--space-l);

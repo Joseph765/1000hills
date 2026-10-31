@@ -11,7 +11,7 @@
 		},
 		{
 			title: 'A meal to share',
-			text: 'A meal, served with a smile and a conversation.'
+			text: 'A meal is served with a smile and a conversation.'
 		},
 		{
 			title: 'Worship and the Word',
