@@ -129,12 +129,6 @@
 		gap: var(--space-s);
 	}
 
-	/* A little extra room above the copyright line so it reads as a
-	   trailing legal note, not just another line of the tagline. */
-	.footer-brand :global(.footer-copyright) {
-		margin-top: var(--space-xs);
-	}
-
 	.footer-brand img {
 		display: block;
 		height: 52px;
@@ -180,7 +174,7 @@
 
 	@media (max-width: 900px) {
 		.footer-inner {
-			padding-inline: var(--space-m);
+			padding: var(--space-xxl) var(--space-m) var(--space-l) var(--space-m);
 		}
 	}
 </style>

@@ -14,7 +14,7 @@
 	{@render children()}
 </main>
 
-<Footer />
+<Footer email="lee.whitlock1993@gmail.com" />
 
 <style>
 	.skip-link {

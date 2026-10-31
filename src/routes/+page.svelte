@@ -11,7 +11,7 @@
 		},
 		{
 			title: 'A meal to share',
-			text: "Often it's pizza. It's always served with a smile and a conversation."
+			text: 'A meal, served with a smile and a conversation.'
 		},
 		{
 			title: 'Worship and the Word',
@@ -24,20 +24,20 @@
 	<title>Church in the Field · 1000 Hills Ministry</title>
 	<meta
 		name="description"
-		content="Every day, a church from around Houston gathers on a small patch of grass to share a meal, worship together, and remind our neighbors that God loves them."
+		content="Every day, neighbors gather on a small patch of grass to share a meal, worship together, and remind each other that God loves them."
 	/>
 </svelte:head>
 
 <section class="hero" aria-labelledby="hero-title">
 	<div class="hero-inner">
 		<div class="hero-copy">
-			<Text variant="eyebrow">Church in the Field · Houston, Texas</Text>
+			<Text variant="eyebrow">Church in the Field</Text>
 
 			<Heading level={1} id="hero-title">No one in Houston should face despair alone.</Heading>
 
 			<Text size="l">
-				Every day, a church from around Houston gathers on a small patch of grass to share a meal,
-				worship together, and remind our neighbors that God loves them, and so do we.
+				Every day, we gather on a small patch of grass to share a meal, worship together,
+				and remind our neighbors that God loves them, and so do we.
 			</Text>
 
 			<div class="hero-actions">
@@ -89,8 +89,8 @@
 				$100 feeds everyone in the field for one night.
 			</Heading>
 			<Text size="l" tone="on-accent-weak">
-				Your gift buys the food and [what else a gift covers]. Every dollar stays here in
-				Houston.
+				Your gift feeds our neighbors and keeps Church in the Field going, night after night.
+				Every dollar stays here in Houston.
 			</Text>
 		</div>
 

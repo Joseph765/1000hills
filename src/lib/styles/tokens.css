@@ -146,7 +146,7 @@
 
 body {
   margin: 0;
-  background: var(--color-background);
+  background: var(--color-surface);
   color: var(--color-text);
   font-family: var(--font-family);
   font-size: var(--font-size-s);
